@@ -2,6 +2,9 @@
     display: block;
     line-height: 1.4;
     margin: 5px;
+    text-align: left;
+    height: 50px;
+    width: 300px;
 }
 
 #nextQuestion {

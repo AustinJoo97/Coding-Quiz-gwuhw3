@@ -1,6 +1,5 @@
 let initialKey = "q1";
 let currentKey = "q1";
-
 let questions = {
     q1: "What kinds of data types can be used as a JS object's value?",
 
@@ -12,7 +11,6 @@ let questions = {
 
     q5: "How do you create a function that is stored in a variable called 'myFunc'?"
 };
-
 let answers = {
     q1: ["Arrays", "Numbers", "Strings", "All possible answers"],
 
@@ -42,8 +40,14 @@ let answers = {
         "let myFunc:function(){}"
     ]
 };
+let finalKey = Object.keys(questions).pop();
 
-let answersRender = function(){
+
+let renderFirstQuestion = function(){
+    document.getElementById("question").innerHTML = questions[initialKey];
+}
+
+let renderAnswers = function(){
     let answersAvailable = [0, 1, 2, 3];
     let answerToBeRendered = 1;
     let currentAnswerSet = answers[currentKey]; 
@@ -59,6 +63,23 @@ let answersRender = function(){
             i--;
         }
     }
+    if(currentKey === finalKey){
+        currentKey = initialKey;
+    }
 }
 
-answersRender();
+let nextKeyAssigner = function(){
+    for(let i = 0; i < Object.keys(questions).length; i++){
+        if(currentKey === finalKey){
+            currentKey = initialKey;
+            return;
+        } else if(currentKey === `q${i}` ){
+            currentKey === `q${i+1}`;
+        }
+    }
+}
+
+
+renderFirstQuestion();
+renderAnswers();
+
