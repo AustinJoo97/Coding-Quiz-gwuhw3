@@ -1,8 +1,8 @@
 let initialKey = "q1";
-let currentKey = initialKey;
+let currentKey;
 let finalKey;
 let chosenAnswer;
-let currentScore = 0;
+let currentScore;
 let questions = {
     q1: "What kinds of data types can be used as a JS object's value?",
 
@@ -50,8 +50,12 @@ let answerKey = {
     q4: answers["q4"][2],
     q5: answers["q5"][2]
 }
-finalKey = Object.keys(questions).pop();
 
+let initializer = function(){
+    currentKey = initialKey;
+    currentScore = 0;
+    finalKey = Object.keys(questions).pop();
+}
 
 let renderQuestion = function(){
     document.getElementById("question").textContent = questions[currentKey];
@@ -96,16 +100,25 @@ let chooseAnswer = function(answer){
     document.getElementById('selectedAnswer').textContent = `You Chose → ${chosenAnswer}`;
 }
 
+let checkAnswer = function(){
+    if(chosenAnswer === answerKey[currentKey]){
+        currentScore++;
+    } else {
+        currentScore--;
+    }
+    document.getElementById("currentScore").textContent = `Current Score: ${currentScore}`
+}
+
 let renderAll = function(){
+    checkAnswer();
     nextKeyAssigner();
     renderQuestion();
     renderAnswers();
 }
 
-document.getElementById("nextQuestion").addEventListener("click", nextKeyAssigner);
-document.getElementById("nextQuestion").addEventListener("click", renderAll);
 
-
+initializer();
 renderQuestion();
 renderAnswers();
 
+document.getElementById("nextQuestion").addEventListener("click", renderAll);
