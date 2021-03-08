@@ -1,5 +1,5 @@
 let initialKey = "q1";
-let currentKey = "q1";
+let currentKey = initialKey;
 let questions = {
     q1: "What kinds of data types can be used as a JS object's value?",
 
@@ -74,10 +74,15 @@ let nextKeyAssigner = function(){
             currentKey = initialKey;
             return;
         } else if(currentKey === `q${i}` ){
-            currentKey === `q${i+1}`;
+            i += 1;
+            currentKey = `q${i}`;
+            return;
         }
     }
 }
+
+
+document.getElementById("nextQuestion").addEventListener("click", nextKeyAssigner);
 
 
 renderFirstQuestion();
