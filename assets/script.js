@@ -1,3 +1,6 @@
+let initialKey = "q1";
+let currentKey = "q1";
+
 let questions = {
     q1: "What kinds of data types can be used as a JS object's value?",
 
@@ -8,10 +11,10 @@ let questions = {
     q4: "How would a developer alert the message 'Hello World!'?",
 
     q5: "How do you create a function that is stored in a variable called 'myFunc'?"
-}
+};
 
 let answers = {
-    q1: ["Arrays", "Numbers", "Strings", "All of the above"],
+    q1: ["Arrays", "Numbers", "Strings", "All possible answers"],
 
     q2: [
     "document.getElementbyID()", 
@@ -38,4 +41,24 @@ let answers = {
         "let function = myFunc(){}",
         "let myFunc:function(){}"
     ]
+};
+
+let answersRender = function(){
+    let answersAvailable = [0, 1, 2, 3];
+    let answerToBeRendered = 1;
+    let currentAnswerSet = answers[currentKey]; 
+    let answerRendered; 
+
+    for(let i = 0; i < currentAnswerSet.length; i++){
+        answerRendered = Math.floor(Math.random() * answersAvailable.length);
+        if(answerRendered in answersAvailable){
+            document.getElementById(`answerChoice${answerToBeRendered}`).innerHTML = currentAnswerSet[answerRendered];
+            delete answersAvailable[answerRendered]
+            answerToBeRendered++;
+        } else {
+            i--;
+        }
+    }
 }
+
+answersRender();
