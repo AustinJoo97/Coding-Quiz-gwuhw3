@@ -43,8 +43,8 @@ let answers = {
 let finalKey = Object.keys(questions).pop();
 
 
-let renderFirstQuestion = function(){
-    document.getElementById("question").innerHTML = questions[initialKey];
+let renderQuestion = function(){
+    document.getElementById("question").innerHTML = questions[currentKey];
 }
 
 let renderAnswers = function(){
@@ -81,10 +81,16 @@ let nextKeyAssigner = function(){
     }
 }
 
+let renderAll = function(){
+    renderQuestion();
+    renderAnswers();
+}
+
 
 document.getElementById("nextQuestion").addEventListener("click", nextKeyAssigner);
+document.getElementById("nextQuestion").addEventListener("click", renderAll);
 
 
-renderFirstQuestion();
+renderQuestion();
 renderAnswers();
 
