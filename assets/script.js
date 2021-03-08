@@ -1,4 +1,9 @@
 // These are the variables that will be utilized while a user is interacting with the application
+let startButton = document.getElementById('startButton');
+let questionEl = document.getElementById("question");
+let selectedAnswer = document.getElementById('selectedAnswer');
+let renderedScore = document.getElementById("currentScore");
+let nextQuesh = document.getElementById("nextQuestion");
 let initialKey = "q1";
 let currentKey;
 let finalKey;
@@ -19,7 +24,7 @@ let answers = {
     q1: ["Arrays", "Numbers", "Strings", "All possible answers"],
 
     q2: [
-    "document.getElementbyID('p')", 
+    "document.getElementbyId('p')", 
     "document.querySelectorAll('p')", 
     "document.selectParagraph()", 
     "document.p.setAttribute()"],
@@ -53,7 +58,7 @@ let answerKey = {
 }
 
 // This is a function that will load the quiz itself upon clicking start
-document.getElementById('startButton').addEventListener("click", function(){
+startButton.addEventListener("click", function(){
     document.getElementById('startButton').style.display = "none";
     document.getElementById('quiz').style.display = "inline-block"
 })
@@ -66,7 +71,7 @@ let initializer = function(){
 }
 
 let renderQuestion = function(){
-    document.getElementById("question").textContent = questions[currentKey];
+    questionEl.textContent = questions[currentKey];
 }
 
 let renderAnswers = function(){
@@ -105,7 +110,7 @@ let nextKeyAssigner = function(){
 
 let chooseAnswer = function(answer){
     chosenAnswer = answer.textContent;
-    document.getElementById('selectedAnswer').textContent = `You Chose → ${chosenAnswer}`;
+    selectedAnswer.textContent = `You Chose → ${chosenAnswer}`;
 }
 
 let checkAnswer = function(){
@@ -114,7 +119,7 @@ let checkAnswer = function(){
     } else {
         currentScore--;
     }
-    document.getElementById("currentScore").textContent = `Current Score: ${currentScore}`
+    renderedScore.textContent = `Current Score: ${currentScore}`
 }
 
 let renderAll = function(){
@@ -131,4 +136,4 @@ renderQuestion();
 renderAnswers();
 
 // This event handler will, upon click next question, run all of the functions specified in renderAll()
-document.getElementById("nextQuestion").addEventListener("click", renderAll);
+nextQuesh.addEventListener("click", renderAll);

@@ -11,6 +11,10 @@
     width: 500px;
 }
 
+#submitButton {
+    display: none;
+}
+
 #scoreboard{
     display: none;
 }
