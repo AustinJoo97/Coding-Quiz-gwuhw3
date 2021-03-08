@@ -4,8 +4,10 @@ let questionEl = document.getElementById("question");
 let selectedAnswer = document.getElementById('selectedAnswer');
 let renderedScore = document.getElementById("currentScore");
 let nextQuesh = document.getElementById("nextQuestion");
+let submitBtn = document.getElementById("submitButton");
 let initialKey = "q1";
 let currentKey;
+let currentKeyIndex;
 let finalKey;
 let chosenAnswer;
 let currentScore;
@@ -66,8 +68,9 @@ startButton.addEventListener("click", function(){
 // These are all functions that will be utilized to progress through the quiz itself
 let initializer = function(){
     currentKey = initialKey;
+    currentKeyIndex = 1;
     currentScore = 0;
-    finalKey = Object.keys(questions).pop();
+    finalKey = Object.keys(questions)[Object.keys(questions).length-1];
 }
 
 let renderQuestion = function(){
@@ -90,21 +93,12 @@ let renderAnswers = function(){
             i--;
         }
     }
-    if(currentKey === finalKey){
-        currentKey = initialKey;
-    }
 }
 
 let nextKeyAssigner = function(){
-    for(let i = 0; i < Object.keys(questions).length; i++){
-        if(currentKey === finalKey){
-            currentKey = initialKey;
-            return;
-        } else if(currentKey === `q${i}` ){
-            i += 1;
-            currentKey = `q${i}`;
-            return;
-        }
+    if(currentKey === `q${currentKeyIndex}`){
+        currentKeyIndex++;
+        currentKey = `q${currentKeyIndex}`;
     }
 }
 
@@ -124,9 +118,16 @@ let checkAnswer = function(){
 
 let renderAll = function(){
     checkAnswer();
-    nextKeyAssigner();
-    renderQuestion();
-    renderAnswers();
+    if(currentKey === finalKey){
+        nextQuesh.style.display = "none";
+        submitBtn.style.display = "inline-block";
+        initializer();
+        return;
+    } else {
+        nextKeyAssigner();
+        renderQuestion();
+        renderAnswers();
+    }
 }
 
 
@@ -137,3 +138,4 @@ renderAnswers();
 
 // This event handler will, upon click next question, run all of the functions specified in renderAll()
 nextQuesh.addEventListener("click", renderAll);
+
