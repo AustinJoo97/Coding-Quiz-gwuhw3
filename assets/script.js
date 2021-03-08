@@ -1,3 +1,4 @@
+// These are the variables that will be utilized while a user is interacting with the application
 let initialKey = "q1";
 let currentKey;
 let finalKey;
@@ -51,6 +52,13 @@ let answerKey = {
     q5: answers["q5"][2]
 }
 
+// This is a function that will load the quiz itself upon clicking start
+document.getElementById('startButton').addEventListener("click", function(){
+    document.getElementById('startButton').style.display = "none";
+    document.getElementById('quiz').style.display = "inline-block"
+})
+
+// These are all functions that will be utilized to progress through the quiz itself
 let initializer = function(){
     currentKey = initialKey;
     currentScore = 0;
