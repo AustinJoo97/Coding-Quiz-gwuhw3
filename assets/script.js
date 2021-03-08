@@ -125,8 +125,10 @@ let renderAll = function(){
 }
 
 
+// These are all of the functions that will be called as soon as the quiz is loaded to intialize all variables and load each question and answer set
 initializer();
 renderQuestion();
 renderAnswers();
 
+// This event handler will, upon click next question, run all of the functions specified in renderAll()
 document.getElementById("nextQuestion").addEventListener("click", renderAll);
