@@ -2,6 +2,7 @@ let initialKey = "q1";
 let currentKey = initialKey;
 let finalKey;
 let chosenAnswer;
+let currentScore = 0;
 let questions = {
     q1: "What kinds of data types can be used as a JS object's value?",
 
@@ -90,10 +91,10 @@ let nextKeyAssigner = function(){
     }
 }
 
-// let chooseAnswer = function(event){
-//     console.log(`this is the event: ${JSON.stringify(event)}`);
-//     // chosenAnswer = event.value;
-// }
+let chooseAnswer = function(answer){
+    chosenAnswer = answer.textContent;
+    document.getElementById('selectedAnswer').textContent = `You Chose → ${chosenAnswer}`;
+}
 
 let renderAll = function(){
     nextKeyAssigner();
@@ -101,7 +102,6 @@ let renderAll = function(){
     renderAnswers();
 }
 
-// document.getElementById("answerChoice1").addEventListener("click", chooseAnswer);
 document.getElementById("nextQuestion").addEventListener("click", nextKeyAssigner);
 document.getElementById("nextQuestion").addEventListener("click", renderAll);
 
