@@ -11,6 +11,7 @@ let currentKeyIndex;
 let finalKey;
 let chosenAnswer;
 let currentScore;
+let timer = 30;
 let questions = {
     q1: "What kinds of data types can be used as a JS object's value?",
 
@@ -110,10 +111,10 @@ let chooseAnswer = function(answer){
 let checkAnswer = function(){
     if(chosenAnswer === answerKey[currentKey]){
         currentScore++;
+        renderedScore.textContent = `Current Score: ${currentScore}`
     } else {
-        currentScore--;
+        timer--;
     }
-    renderedScore.textContent = `Current Score: ${currentScore}`
 }
 
 let renderAll = function(){
