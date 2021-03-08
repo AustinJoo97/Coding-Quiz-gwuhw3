@@ -113,7 +113,7 @@ let checkAnswer = function(){
         currentScore++;
         renderedScore.textContent = `Current Score: ${currentScore}`
     } else {
-        timer--;
+        timer -= 5;
     }
 }
 
@@ -140,3 +140,12 @@ renderAnswers();
 // This event handler will, upon click next question, run all of the functions specified in renderAll()
 nextQuesh.addEventListener("click", renderAll);
 
+
+
+
+
+// Functionality to ADD:
+    // Working Timer that changes intermittently on screen and will decrease with each incorrect answer
+    // Score page that will load when timer hits 0 or submit is clicked
+        // Will have an input box for user initials to be stored to scores object that will be saved in localstorage
+    // CSS styling
