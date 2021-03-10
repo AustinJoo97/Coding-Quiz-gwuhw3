@@ -30,7 +30,7 @@ let answers = {
     q1: ["Arrays", "Numbers", "Strings", "All possible answers"],
 
     q2: [
-    "document.getElementbyId('p')", 
+    "document.getElementById('p')", 
     "document.querySelectorAll('p')", 
     "document.selectParagraph()", 
     "document.p.setAttribute()"],
@@ -60,7 +60,7 @@ let answerKey = {
     q2: answers["q2"][1],
     q3: answers["q3"][0],
     q4: answers["q4"][2],
-    q5: answers["q5"][2]
+    q5: answers["q5"][1]
 }
 
 // This is a function that will load the quiz itself upon clicking start
@@ -141,6 +141,26 @@ let showScoreboard = function(){
     document.getElementById('finalScore').textContent = `Final Score: ${currentScore}`;
 }
 
+let saveScore = function(event){
+    event.preventDefault();
+    
+    let userInitials = document.getElementById('userInitials').value;
+    let scoreObj = {
+        [currentScore]: userInitials,
+    };
+    let currentScoreTable 
+    if(!Array.isArray(JSON.parse(localStorage.hiScore))){
+        currentScoreTable = [];
+        currentScoreTable.push(scoreObj);
+        localStorage.hiScore = JSON.stringify(currentScoreTable);
+    } else {
+        currentScoreTable = JSON.parse(localStorage.hiScore);
+        currentScoreTable.push(scoreObj);
+        localStorage.hiScore = JSON.stringify(currentScoreTable);
+    } 
+    initializer();
+}
+
 
 // These are all of the functions that will be called as soon as the quiz is loaded to intialize all variables and load each question and answer set
 initializer();
@@ -150,7 +170,7 @@ renderAnswers();
 // This event handler will, upon click next question, run all of the functions specified in renderAll()
 nextQuesh.addEventListener("click", renderAll);
 submitBtn.addEventListener("click", showScoreboard);
-
+saveBtn.addEventListener("click", saveScore)
 
 
 
