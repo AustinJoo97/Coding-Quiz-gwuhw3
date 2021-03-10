@@ -70,6 +70,7 @@ startButton.addEventListener("click", function(){
 })
 
 // These are all functions that will be utilized to progress through the quiz itself
+// This function will reset the variables used to manage progression through the quiz to ensure it starts at the beginning 
 let initializer = function(){
     currentKey = initialKey;
     currentKeyIndex = 1;
@@ -77,10 +78,12 @@ let initializer = function(){
     finalKey = Object.keys(questions)[Object.keys(questions).length-1];
 }
 
+// This function will render the current question to the DOM
 let renderQuestion = function(){
     questionEl.textContent = questions[currentKey];
 }
 
+// This function renders each question's corresponding answers to the DOM
 let renderAnswers = function(){
     let answersAvailable = [0, 1, 2, 3];
     let answerToBeRendered = 1;
@@ -99,6 +102,7 @@ let renderAnswers = function(){
     }
 }
 
+// This function will change the key to properly iterate through each question of the quiz
 let nextKeyAssigner = function(){
     if(currentKey === `q${currentKeyIndex}`){
         currentKeyIndex++;
@@ -106,11 +110,13 @@ let nextKeyAssigner = function(){
     }
 }
 
+// This function will retain the value of a user selected answer and use it to compare for a point
 let chooseAnswer = function(answer){
     chosenAnswer = answer.textContent;
     selectedAnswer.textContent = `You Chose → ${chosenAnswer}`;
 }
 
+// This function will compare the user selected answer to that which exists in the answerKey object
 let checkAnswer = function(){
     if(chosenAnswer === answerKey[currentKey]){
         currentScore++;
@@ -120,6 +126,7 @@ let checkAnswer = function(){
     }
 }
 
+// This function will render the quetion, answer choices, check the answer of a previous answer made (if possible), and either change the key to render the next question or change the save button to a submit button.
 let renderAll = function(){
     checkAnswer();
     if(currentKey === finalKey){
@@ -135,12 +142,14 @@ let renderAll = function(){
     }
 }
 
-let showScoreboard = function(){
+// This function will, upon clicking submit or TIME RUNNING OUT (NEED TO IMPLMENT), take the user to a screen which shows their score. Here they can enter initials to be saved.
+let enterScore = function(){
     quizEl.style.display = "none";
     scoreBoard.style.display = "inline-block";
     document.getElementById('finalScore').textContent = `Final Score: ${currentScore}`;
 }
 
+// This func will take the user's score and added intials and save them into an object that will be pushed to localstorage.hiScore's value which will be established as an array;
 let saveScore = function(event){
     event.preventDefault();
     
@@ -169,7 +178,7 @@ renderAnswers();
 
 // This event handler will, upon click next question, run all of the functions specified in renderAll()
 nextQuesh.addEventListener("click", renderAll);
-submitBtn.addEventListener("click", showScoreboard);
+submitBtn.addEventListener("click", enterScore);
 saveBtn.addEventListener("click", saveScore)
 
 
