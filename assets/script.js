@@ -89,7 +89,8 @@ let timeFunc = setInterval(function(){
     }
 }, 1000)
 
-// These are all functions that will be utilized to progress through the quiz itself
+// THESE FOLLOWING FUNCTIONS PERTAIN TO TRAVERSAL OF THE QUIZ ITSELF AND THE VALUES THAT SHIFT AS A RESULT
+
 // This function will reset the variables used to manage progression through the quiz to ensure it starts at the beginning 
 let initializer = function(){
     timeLeft = 30;
@@ -171,6 +172,9 @@ let renderAll = function(){
     }
 }
 
+
+// THESE FOLLOWING FUNCTIONS PERTAIN TO TAKING THE SCORE FROM A QUIZ TAKER, THE USER'S INITIALS, SAVING THEM TO LOCAL STORAGE, AND RENDERING THE TOP 5 SCORES SAVED TO THE DOM
+
 // This function will, upon clicking submit or time running out, take the user to a screen which shows their score. Here they can enter initials to be saved.
 let enterScore = function(){
     clearInterval(timeFunc);
@@ -231,10 +235,29 @@ let scoreOrganizer = function(arrOfObjs, obj){
     }
 }
 
-// This function will iterate through the first 5 or 10 items listed in the localstorage.hiScore array and append them to the DOM as <li> items
+// This function will iterate through the first 5 items listed in the localstorage.hiScore array and append them to the DOM as <li> items
 let renderHiScores = function(){
     scoreEntry.style.display = "none";
     hiScoreDisplay.style.display = "inline-block";
+    let savedScores = JSON.parse(localStorage.hiScore);
+    let initials;
+    let userScore;
+    let maxListItems;
+    if(savedScores.length <= 4){
+        maxListItems = savedScores.length;
+    } else {
+        maxListItems = 5
+    }
+
+    for(let i = 0; i < maxListItems; i++){
+        initials = Object.values(savedScores[i])[0];
+        userScore = Object.keys(savedScores[i])[0];
+        let topScoreToAppend = document.createElement('li');
+        topScoreToAppend.textContent = `${initials} : ${userScore}`
+        topScoreToAppend.setAttribute("id", `topScore${i+1}`);
+        top5.appendChild(topScoreToAppend);
+    }
+
     document.getElementById('youPlaced').textContent = `You placed at spot ${youPlaced}!`
 };
 
@@ -243,7 +266,6 @@ let renderHiScores = function(){
 initializer();
 renderQuestion();
 renderAnswers();
-console.log(timeLeft);
 
 // This event handler will, upon click next question, run all of the functions specified in renderAll()
 nextQuesh.addEventListener("click", renderAll);
@@ -254,5 +276,4 @@ saveBtn.addEventListener("click", saveScore)
 
 
 // Functionality to ADD:
-    // Top 5 scoreres display upon clicking submit
     // CSS styling
