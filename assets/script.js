@@ -1,11 +1,14 @@
 // These are the variables that will be utilized while a user is interacting with the application
 let startButton = document.getElementById('startButton');
-let questionEl = document.getElementById("question");
+let questionEl = document.getElementById('question');
+let quizEl = document.getElementById('quiz')
+let scoreBoard= document.getElementById('yourScore');
 let selectedAnswer = document.getElementById('selectedAnswer');
-let renderedScore = document.getElementById("currentScore");
-let nextQuesh = document.getElementById("nextQuestion");
-let submitBtn = document.getElementById("submitButton");
-let initialKey = "q1";
+let renderedScore = document.getElementById('currentScore');
+let nextQuesh = document.getElementById('nextQuestion');
+let submitBtn = document.getElementById('submitButton');
+let saveBtn = document.getElementById('saveButton');
+let initialKey = 'q1';
 let currentKey;
 let currentKeyIndex;
 let finalKey;
@@ -124,13 +127,18 @@ let renderAll = function(){
         document.getElementById("answers").style.display = "none";
         nextQuesh.style.display = "none";
         submitBtn.style.display = "inline-block";
-        initializer();
         return;
     } else {
         nextKeyAssigner();
         renderQuestion();
         renderAnswers();
     }
+}
+
+let showScoreboard = function(){
+    quizEl.style.display = "none";
+    scoreBoard.style.display = "inline-block";
+    document.getElementById('finalScore').textContent = `Final Score: ${currentScore}`;
 }
 
 
@@ -141,6 +149,7 @@ renderAnswers();
 
 // This event handler will, upon click next question, run all of the functions specified in renderAll()
 nextQuesh.addEventListener("click", renderAll);
+submitBtn.addEventListener("click", showScoreboard);
 
 
 
