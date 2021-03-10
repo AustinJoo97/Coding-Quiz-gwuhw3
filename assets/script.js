@@ -188,7 +188,7 @@ let saveScore = function(event){
     event.preventDefault();
     
     let userInitials = document.getElementById('userInitials').value;
-    if(userInitials.length > 2){
+    if(userInitials.length !== 2){
         alert(`Please enter only 2 letter initials! 1 for first name and 1 for last name!`)
         userInitials = "";
     } else {
