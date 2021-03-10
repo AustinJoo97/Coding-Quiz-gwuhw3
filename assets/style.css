@@ -2,6 +2,10 @@
     display:none;
 }
 
+#question{
+    white-space: break-spaces;
+}
+
 .answerChoices {
     display: block;
     line-height: 1.4;

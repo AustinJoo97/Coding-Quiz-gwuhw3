@@ -17,7 +17,7 @@ let questions = {
 
     q2: "How do you apply JS functionality on every paraphgraph element in an HTML file?",
 
-    q3: "What is the correct JavaScript syntax to change the content of the HTML element below? \r\n <p id='demo'>This is a demonstration.</p>",
+    q3: "What is the correct JavaScript syntax to change the content of the HTML element below? \n\n <p id='demo'>This is a demonstration.</p>",
 
     q4: "How would a developer alert the message 'Hello World!'?",
 
@@ -120,6 +120,8 @@ let checkAnswer = function(){
 let renderAll = function(){
     checkAnswer();
     if(currentKey === finalKey){
+        questionEl.style.display = "none";
+        document.getElementById("answers").style.display = "none";
         nextQuesh.style.display = "none";
         submitBtn.style.display = "inline-block";
         initializer();
