@@ -8,13 +8,14 @@ let renderedScore = document.getElementById('currentScore');
 let nextQuesh = document.getElementById('nextQuestion');
 let submitBtn = document.getElementById('submitButton');
 let saveBtn = document.getElementById('saveButton');
+let timerDisplay = document.getElementById('timer');
 let initialKey = 'q1';
 let currentKey;
 let currentKeyIndex;
 let finalKey;
 let chosenAnswer;
 let currentScore;
-let timer = 30;
+let timeLeft = 30;
 let questions = {
     q1: "What kinds of data types can be used as a JS object's value?",
 
@@ -64,9 +65,21 @@ let answerKey = {
 }
 
 // This is a function that will load the quiz itself upon clicking start
+    // It will also begin the timer which corresponds with the quiz, forcing the user to finish the quiz in time alloted. Once the timer hits zero, it will run the enterScore() func below
 startButton.addEventListener("click", function(){
     document.getElementById('startButton').style.display = "none";
-    document.getElementById('quiz').style.display = "inline-block"
+    document.getElementById('quiz').style.display = "inline-block";
+    clearInterval();
+    timerDisplay.textContent = `${timeLeft} Seconds Remaining!`
+    setInterval(function(){
+        timeLeft--;
+        timerDisplay.textContent = `${timeLeft} Seconds Remaining!`
+        if(timeLeft === 0){
+            clearInterval();
+            timerDisplay.textContent = "TIME'S UP!"
+            enterScore();
+        }
+    }, 1000)
 })
 
 // These are all functions that will be utilized to progress through the quiz itself
@@ -122,7 +135,15 @@ let checkAnswer = function(){
         currentScore++;
         renderedScore.textContent = `Current Score: ${currentScore}`
     } else {
-        timer -= 5;
+        timeLeft -= 3;
+        if(timeLeft < 1){
+            timerDisplay.innerHTML = `TIME'S UP!`
+            alert("TIME'S UP!")
+            enterScore();
+        } else {
+            timerDisplay.innerHTML = `${timeLeft} Seconds Remaining!`
+        }
+
     }
 }
 
@@ -142,7 +163,7 @@ let renderAll = function(){
     }
 }
 
-// This function will, upon clicking submit or TIME RUNNING OUT (NEED TO IMPLMENT), take the user to a screen which shows their score. Here they can enter initials to be saved.
+// This function will, upon clicking submit or time running out, take the user to a screen which shows their score. Here they can enter initials to be saved.
 let enterScore = function(){
     quizEl.style.display = "none";
     scoreBoard.style.display = "inline-block";
@@ -189,7 +210,11 @@ let scoreOrganizer = function(arrOfObjs, obj){
     }
 }
 
-let showScoreBoard = function(){};
+// This function will iterate through the first 5 or 10 items listed in the localstorage.hiScore array and append them to the DOM as <li> items
+let showScoreBoard = function(){
+
+};
+
 
 // These are all of the functions that will be called as soon as the quiz is loaded to intialize all variables and load each question and answer set
 initializer();
