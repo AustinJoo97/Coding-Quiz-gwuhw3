@@ -81,7 +81,7 @@ startButton.addEventListener("click", function(){
 let timeFunc = setInterval(function(){
     timeLeft--;
     timerDisplay.textContent = `${timeLeft} Seconds Remaining!`
-    if(timeLeft === 0){
+    if(timeLeft === -1){
         timerDisplay.textContent = "TIME'S UP!"
         clearInterval(timeFunc);
         alert('TIME\'S UP!')
@@ -188,20 +188,24 @@ let saveScore = function(event){
     event.preventDefault();
     
     let userInitials = document.getElementById('userInitials').value;
-    // if(userInitials.length > 2) 
-    let scoreObj = {
-        [currentScore]: userInitials,
-    };
-    let currentScoreTable 
-    if(!Array.isArray(JSON.parse(localStorage.hiScore))){
-        currentScoreTable = [];
+    if(userInitials.length > 2){
+        alert(`Please enter only 2 letter initials! 1 for first name and 1 for last name!`)
+        userInitials = "";
     } else {
-        currentScoreTable = JSON.parse(localStorage.hiScore);
-    } 
-    scoreOrganizer(currentScoreTable, scoreObj);
-    localStorage.hiScore = JSON.stringify(currentScoreTable);
-    initializer();
-    renderHiScores();
+        let scoreObj = {
+            [currentScore]: userInitials,
+        };
+        let currentScoreTable 
+        if(!Array.isArray(JSON.parse(localStorage.hiScore))){
+            currentScoreTable = [];
+        } else {
+            currentScoreTable = JSON.parse(localStorage.hiScore);
+        } 
+        scoreOrganizer(currentScoreTable, scoreObj);
+        localStorage.hiScore = JSON.stringify(currentScoreTable);
+        initializer();
+        renderHiScores();
+    }
 }
 
 // This function will take in an array and object then place the object in the array based on key's numerical value. 
