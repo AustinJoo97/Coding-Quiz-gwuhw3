@@ -161,15 +161,35 @@ let saveScore = function(event){
     if(!Array.isArray(JSON.parse(localStorage.hiScore))){
         currentScoreTable = [];
         currentScoreTable.push(scoreObj);
-        localStorage.hiScore = JSON.stringify(currentScoreTable);
     } else {
         currentScoreTable = JSON.parse(localStorage.hiScore);
-        currentScoreTable.push(scoreObj);
-        localStorage.hiScore = JSON.stringify(currentScoreTable);
+        scoreOrganizer(currentScoreTable, scoreObj);
     } 
+    localStorage.hiScore = JSON.stringify(currentScoreTable);
     initializer();
 }
 
+// This function will take in an array and object then place the object in the array based on key's numerical value. 
+    // If the obj's key is of greater value than that of arr[i], it will place the obj in at index i. 
+    // If it is equal to arr[i]'s key, it will place the obj at arr[i+1]
+    // If it is not, then it will continue to either iterate until it finds a value it is equal to or will just be placed at the end using .push()
+let scoreOrganizer = function(arrOfObjs, obj){
+    let valToCheck = Object.keys(obj)[0];
+    for(i = 0; i < arrOfObjs.length; i++){
+        if(Number(valToCheck) > Number(Object.keys(arrOfObjs[i])[0])){
+            arrOfObjs.splice(i, 0, obj);
+            return;
+        } else if (Number(valToCheck) === Number(Object.keys(arrOfObjs[i])[0])){
+            arrOfObjs.splice(i+1, 0, obj);
+            return;
+        } else {
+            arrOfObjs.push(obj);
+            return;
+        }
+    }
+}
+
+let showScoreBoard = function(){};
 
 // These are all of the functions that will be called as soon as the quiz is loaded to intialize all variables and load each question and answer set
 initializer();
