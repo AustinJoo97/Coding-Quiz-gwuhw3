@@ -4,6 +4,7 @@ let questionEl = document.getElementById('question');
 let quizEl = document.getElementById('quiz')
 let scoreEntry= document.getElementById('yourScore');
 let hiScoreDisplay = document.getElementById('hiScoreTable');
+let top5 = document.getElementById('top5List');
 let selectedAnswer = document.getElementById('selectedAnswer');
 let renderedScore = document.getElementById('currentScore');
 let nextQuesh = document.getElementById('nextQuestion');
@@ -16,7 +17,7 @@ let currentKeyIndex;
 let finalKey;
 let chosenAnswer;
 let currentScore;
-let timeLeft = 30;
+let timeLeft = Number.MAX_VALUE;
 let youPlaced;
 let questions = {
     q1: "What kinds of data types can be used as a JS object's value?",
@@ -70,7 +71,7 @@ let answerKey = {
     // It will also begin the timer which corresponds with the quiz, forcing the user to finish the quiz in time alloted. Once the timer hits zero, it will run the enterScore() func below
 startButton.addEventListener("click", function(){
     initializer();
-    timerDisplay.textContent = `${timeLeft} Seconds Remaining!`
+    timerDisplay.textContent = `${timeLeft} Seconds Remaining!`;
     document.getElementById('startButton').style.display = "none";
     document.getElementById('quiz').style.display = "inline-block";
 })
@@ -91,6 +92,7 @@ let timeFunc = setInterval(function(){
 // These are all functions that will be utilized to progress through the quiz itself
 // This function will reset the variables used to manage progression through the quiz to ensure it starts at the beginning 
 let initializer = function(){
+    timeLeft = 30;
     currentKey = initialKey;
     currentKeyIndex = 1;
     currentScore = 0;
@@ -182,17 +184,17 @@ let saveScore = function(event){
     event.preventDefault();
     
     let userInitials = document.getElementById('userInitials').value;
+    // if(userInitials.length > 2) 
     let scoreObj = {
         [currentScore]: userInitials,
     };
     let currentScoreTable 
     if(!Array.isArray(JSON.parse(localStorage.hiScore))){
         currentScoreTable = [];
-        currentScoreTable.push(scoreObj);
     } else {
         currentScoreTable = JSON.parse(localStorage.hiScore);
-        scoreOrganizer(currentScoreTable, scoreObj);
     } 
+    scoreOrganizer(currentScoreTable, scoreObj);
     localStorage.hiScore = JSON.stringify(currentScoreTable);
     initializer();
     renderHiScores();
@@ -204,17 +206,26 @@ let saveScore = function(event){
     // If it is not, then it will continue to either iterate until it finds a value it is equal to or will just be placed at the end using .push()
 let scoreOrganizer = function(arrOfObjs, obj){
     let valToCheck = Object.keys(obj)[0];
+
+    if(arrOfObjs.length === 0){
+        youPlaced = 1;
+        arrOfObjs.push(obj);
+        return;
+    }
+
     for(i = 0; i < arrOfObjs.length; i++){
         if(Number(valToCheck) > Number(Object.keys(arrOfObjs[i])[0])){
-            youPlaced = i;
+            youPlaced = i+1;
             arrOfObjs.splice(i, 0, obj);
             return;
         } else if (Number(valToCheck) === Number(Object.keys(arrOfObjs[i])[0])){
-            youPlaced = i+1;
+            youPlaced = i+2;
             arrOfObjs.splice(i+1, 0, obj);
             return;
-        } else {
+        } 
+        if(i === arrOfObjs.length-1){
             arrOfObjs.push(obj);
+            youPlaced = arrOfObjs.length;
             return;
         }
     }
@@ -232,6 +243,7 @@ let renderHiScores = function(){
 initializer();
 renderQuestion();
 renderAnswers();
+console.log(timeLeft);
 
 // This event handler will, upon click next question, run all of the functions specified in renderAll()
 nextQuesh.addEventListener("click", renderAll);
