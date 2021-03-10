@@ -2,7 +2,8 @@
 let startButton = document.getElementById('startButton');
 let questionEl = document.getElementById('question');
 let quizEl = document.getElementById('quiz')
-let scoreBoard= document.getElementById('yourScore');
+let scoreEntry= document.getElementById('yourScore');
+let hiScoreDisplay = document.getElementById('hiScoreTable');
 let selectedAnswer = document.getElementById('selectedAnswer');
 let renderedScore = document.getElementById('currentScore');
 let nextQuesh = document.getElementById('nextQuestion');
@@ -16,6 +17,7 @@ let finalKey;
 let chosenAnswer;
 let currentScore;
 let timeLeft = 30;
+let youPlaced;
 let questions = {
     q1: "What kinds of data types can be used as a JS object's value?",
 
@@ -67,20 +69,24 @@ let answerKey = {
 // This is a function that will load the quiz itself upon clicking start
     // It will also begin the timer which corresponds with the quiz, forcing the user to finish the quiz in time alloted. Once the timer hits zero, it will run the enterScore() func below
 startButton.addEventListener("click", function(){
+    initializer();
+    timerDisplay.textContent = `${timeLeft} Seconds Remaining!`
     document.getElementById('startButton').style.display = "none";
     document.getElementById('quiz').style.display = "inline-block";
-    clearInterval();
-    timerDisplay.textContent = `${timeLeft} Seconds Remaining!`
-    setInterval(function(){
-        timeLeft--;
-        timerDisplay.textContent = `${timeLeft} Seconds Remaining!`
-        if(timeLeft === 0){
-            clearInterval();
-            timerDisplay.textContent = "TIME'S UP!"
-            enterScore();
-        }
-    }, 1000)
 })
+
+// This function will begin the timer which corresponds with the quiz, forcing the user to finish the quiz in time alloted. 
+    // Once the timer hits zero, it will run the enterScore() func below
+let timeFunc = setInterval(function(){
+    timeLeft--;
+    timerDisplay.textContent = `${timeLeft} Seconds Remaining!`
+    if(timeLeft === 0){
+        timerDisplay.textContent = "TIME'S UP!"
+        clearInterval(timeFunc);
+        alert('TIME\'S UP!')
+        enterScore();
+    }
+}, 1000)
 
 // These are all functions that will be utilized to progress through the quiz itself
 // This function will reset the variables used to manage progression through the quiz to ensure it starts at the beginning 
@@ -165,8 +171,9 @@ let renderAll = function(){
 
 // This function will, upon clicking submit or time running out, take the user to a screen which shows their score. Here they can enter initials to be saved.
 let enterScore = function(){
+    clearInterval(timeFunc);
     quizEl.style.display = "none";
-    scoreBoard.style.display = "inline-block";
+    scoreEntry.style.display = "inline-block";
     document.getElementById('finalScore').textContent = `Final Score: ${currentScore}`;
 }
 
@@ -188,6 +195,7 @@ let saveScore = function(event){
     } 
     localStorage.hiScore = JSON.stringify(currentScoreTable);
     initializer();
+    renderHiScores();
 }
 
 // This function will take in an array and object then place the object in the array based on key's numerical value. 
@@ -198,9 +206,11 @@ let scoreOrganizer = function(arrOfObjs, obj){
     let valToCheck = Object.keys(obj)[0];
     for(i = 0; i < arrOfObjs.length; i++){
         if(Number(valToCheck) > Number(Object.keys(arrOfObjs[i])[0])){
+            youPlaced = i;
             arrOfObjs.splice(i, 0, obj);
             return;
         } else if (Number(valToCheck) === Number(Object.keys(arrOfObjs[i])[0])){
+            youPlaced = i+1;
             arrOfObjs.splice(i+1, 0, obj);
             return;
         } else {
@@ -211,8 +221,10 @@ let scoreOrganizer = function(arrOfObjs, obj){
 }
 
 // This function will iterate through the first 5 or 10 items listed in the localstorage.hiScore array and append them to the DOM as <li> items
-let showScoreBoard = function(){
-
+let renderHiScores = function(){
+    scoreEntry.style.display = "none";
+    hiScoreDisplay.style.display = "inline-block";
+    document.getElementById('youPlaced').textContent = `You placed at spot ${youPlaced}!`
 };
 
 
@@ -230,7 +242,5 @@ saveBtn.addEventListener("click", saveScore)
 
 
 // Functionality to ADD:
-    // Working Timer that changes intermittently on screen and will decrease with each incorrect answer
-    // Score page that will load when timer hits 0 or submit is clicked
-        // Will have an input box for user initials to be stored to scores object that will be saved in localstorage
+    // Top 5 scoreres display upon clicking submit
     // CSS styling

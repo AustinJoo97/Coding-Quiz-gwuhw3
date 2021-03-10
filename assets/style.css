@@ -6,6 +6,9 @@
     white-space: break-spaces;
 }
 
+#nextQuestion {
+    margin-top: 10px;
+}
 .answerChoices {
     display: block;
     line-height: 1.4;
@@ -23,6 +26,6 @@
     display: none;
 }
 
-#nextQuestion {
-    margin-top: 10px;
+#hiScoreTable {
+    display: none;
 }
