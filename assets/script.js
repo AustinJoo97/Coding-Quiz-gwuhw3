@@ -17,7 +17,7 @@ let currentKeyIndex;
 let finalKey;
 let chosenAnswer;
 let currentScore;
-let timeLeft = Number.MAX_VALUE;
+let timeLeft;
 let youPlaced;
 let questions = {
     q1: "What kinds of data types can be used as a JS object's value?",
@@ -70,7 +70,7 @@ let answerKey = {
 // This is a function that will load the quiz itself upon clicking start
     // It will also begin the timer which corresponds with the quiz, forcing the user to finish the quiz in time alloted. Once the timer hits zero, it will run the enterScore() func below
 startButton.addEventListener("click", function(){
-    initializer();
+    timeLeft = 30;
     timerDisplay.textContent = `${timeLeft} Seconds Remaining!`;
     document.getElementById('startButton').style.display = "none";
     document.getElementById('quiz').style.display = "inline-block";
@@ -93,7 +93,7 @@ let timeFunc = setInterval(function(){
 
 // This function will reset the variables used to manage progression through the quiz to ensure it starts at the beginning 
 let initializer = function(){
-    timeLeft = 30;
+    timeLeft = Number.MAX_VALUE;
     currentKey = initialKey;
     currentKeyIndex = 1;
     currentScore = 0;
@@ -179,7 +179,7 @@ let renderAll = function(){
 let enterScore = function(){
     clearInterval(timeFunc);
     quizEl.style.display = "none";
-    scoreEntry.style.display = "inline-block";
+    scoreEntry.style.display = "block";
     document.getElementById('finalScore').textContent = `Final Score: ${currentScore}`;
 }
 

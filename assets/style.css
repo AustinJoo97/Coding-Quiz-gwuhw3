@@ -1,3 +1,42 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button{
+    background-color: cyan;
+    border-radius: 10px;
+}
+
+body{
+    text-align: center;
+}
+
+ul{
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#startButton,
+#submitButton{
+    margin-top: 5%;
+    width: 225px;
+    height: 75px;
+    font-size: 25px;
+}
+
+#timer{
+    font-size: 35px;
+    margin-top: -30px;
+    color: red;
+}
+
+#appTitle{
+    font-size: 75px;
+    color: orange;
+}
+
 #quiz {
     display:none;
 }
@@ -6,16 +45,22 @@
     white-space: break-spaces;
 }
 
-#nextQuestion {
-    margin-top: 10px;
-}
 .answerChoices {
-    display: block;
+    font-size: 15px;
     line-height: 1.4;
-    margin: 5px;
-    text-align: left;
+    margin-top: 5px;
+    text-align: center;
     height: 50px;
     width: 500px;
+}
+
+.answerChoices:hover{
+    color:rgb(255, 0, 255);
+    background-color: greenyellow;
+}
+
+#nextQuestion {
+    margin-top: 10px;
 }
 
 #submitButton {
