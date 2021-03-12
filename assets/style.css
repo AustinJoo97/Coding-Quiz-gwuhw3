@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+body{
+    background-color: rgba(0, 0, 0, 0.836);
+    color: white;
+}
+
 button{
     background-color: cyan;
     border-radius: 10px;
@@ -23,6 +28,12 @@ ul{
     padding-left: 0;
 }
 
+li{
+    margin: 5px 0px;
+    font-size: 20px;
+    color: rgb(0, 182, 0);
+}
+
 #startButton,
 #submitButton{
     margin-top: 5%;
@@ -40,6 +51,10 @@ ul{
 #appTitle{
     font-size: 75px;
     color: orange;
+}
+
+#currentScore{
+    font-size: 30px;
 }
 
 #quiz {
@@ -76,6 +91,29 @@ ul{
     display: none;
 }
 
+#finalScore{
+    font-size: 50px;
+    color: rgb(202, 0, 252);
+}
+
+#userInitials{
+    height: 25px;
+    width: 350px;
+}
+
+#saveButton{
+    margin-top: 5%;
+    width: 200px;
+    height: 35px;
+    font-size: 25px;
+}
+
 #hiScoreTable {
     display: none;
+}
+
+#top5Scorers,
+#youPlaced{
+    font-size: 40px;
+    color: rgb(202, 0, 252);
 }

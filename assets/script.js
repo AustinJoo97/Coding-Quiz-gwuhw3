@@ -11,6 +11,7 @@ let nextQuesh = document.getElementById('nextQuestion');
 let submitBtn = document.getElementById('submitButton');
 let saveBtn = document.getElementById('saveButton');
 let timerDisplay = document.getElementById('timer');
+let userInitials = document.getElementById('userInitials');
 let initialKey = 'q1';
 let currentKey;
 let currentKeyIndex;
@@ -137,7 +138,6 @@ let nextKeyAssigner = function(){
 let chooseAnswer = function(answer){
     answer.style.backgroundColor = 'greenyellow';
     chosenAnswer = answer.textContent;
-    selectedAnswer.textContent = `You Chose → ${chosenAnswer}`;
 }
 
 // This function will compare the user selected answer to that which exists in the answerKey object
@@ -165,7 +165,6 @@ let renderAll = function(){
         questionEl.style.display = "none";
         document.getElementById("answers").style.display = "none";
         nextQuesh.style.display = "none";
-        selectedAnswer.style.display = "none";
         submitBtn.style.display = "inline-block";
         return;
     } else {
@@ -189,26 +188,21 @@ let enterScore = function(){
 // This func will take the user's score and added intials and save them into an object that will be pushed to localstorage.hiScore's value which will be established as an array;
 let saveScore = function(event){
     event.preventDefault();
-    
-    let userInitials = document.getElementById('userInitials').value;
-    if(userInitials.length !== 2){
-        alert(`Please enter only 2 letter initials! 1 for first name and 1 for last name!`)
-        userInitials = "";
+    initials = userInitials.value.toUpperCase(); 
+
+    let scoreObj = {
+        [currentScore]: initials,
+    };
+    let currentScoreTable 
+    if(!Array.isArray(JSON.parse(localStorage.hiScore))){
+        currentScoreTable = [];
     } else {
-        let scoreObj = {
-            [currentScore]: userInitials,
-        };
-        let currentScoreTable 
-        if(!Array.isArray(JSON.parse(localStorage.hiScore))){
-            currentScoreTable = [];
-        } else {
-            currentScoreTable = JSON.parse(localStorage.hiScore);
-        } 
-        scoreOrganizer(currentScoreTable, scoreObj);
-        localStorage.hiScore = JSON.stringify(currentScoreTable);
-        initializer();
-        renderHiScores();
-    }
+        currentScoreTable = JSON.parse(localStorage.hiScore);
+    } 
+    scoreOrganizer(currentScoreTable, scoreObj);
+    localStorage.hiScore = JSON.stringify(currentScoreTable);
+    initializer();
+    renderHiScores();
 }
 
 // This function will take in an array and object then place the object in the array based on key's numerical value. 

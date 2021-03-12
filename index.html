@@ -27,18 +27,19 @@
                 <button id="nextQuestion">Next→</button>
                 <button id="submitButton">Submit Quiz</button>
                 
+
                 <h3 id="currentScore">Current Score: 0</h3>
             </div>
         </div>
         
         <di id="yourScore">
             <div id="finalScore"></div>
-            <input id='userInitials' placeholder="Enter your first and last initials here!"/>
+            <input id='userInitials' placeholder="Enter your first and last initials here!" maxlength="2"/>
             <button id="saveButton">Save Score!</button>
         </di>
         
         <div id="hiScoreTable">
-            <h2>Top 5 Scorers</h2>
+            <h2 id='top5Scorers'>Top 5 Scorers</h2>
             <ul id='top5List'></ul>
             <h3 id='youPlaced'></h3>
         </div>
