@@ -116,6 +116,7 @@ let renderAnswers = function(){
         answerRendered = Math.floor(Math.random() * answersAvailable.length);
         if(answerRendered in answersAvailable){
             document.getElementById(`answerChoice${answerToBeRendered}`).textContent = currentAnswerSet[answerRendered];
+            document.getElementById(`answerChoice${answerToBeRendered}`).style.backgroundColor = 'cyan';
             delete answersAvailable[answerRendered]
             answerToBeRendered++;
         } else {
@@ -134,6 +135,7 @@ let nextKeyAssigner = function(){
 
 // This function will retain the value of a user selected answer and use it to compare for a point
 let chooseAnswer = function(answer){
+    answer.style.backgroundColor = 'greenyellow';
     chosenAnswer = answer.textContent;
     selectedAnswer.textContent = `You Chose → ${chosenAnswer}`;
 }
@@ -163,6 +165,7 @@ let renderAll = function(){
         questionEl.style.display = "none";
         document.getElementById("answers").style.display = "none";
         nextQuesh.style.display = "none";
+        selectedAnswer.style.display = "none";
         submitBtn.style.display = "inline-block";
         return;
     } else {
@@ -275,6 +278,7 @@ renderAnswers();
 nextQuesh.addEventListener("click", renderAll);
 submitBtn.addEventListener("click", enterScore);
 saveBtn.addEventListener("click", saveScore)
+
 
 
 
