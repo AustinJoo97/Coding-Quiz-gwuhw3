@@ -272,10 +272,3 @@ renderAnswers();
 nextQuesh.addEventListener("click", renderAll);
 submitBtn.addEventListener("click", enterScore);
 saveBtn.addEventListener("click", saveScore)
-
-
-
-
-
-// Functionality to ADD:
-    // CSS styling
