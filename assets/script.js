@@ -231,7 +231,7 @@ let scoreOrganizer = function(arrOfObjs, obj){
         if(i === arrOfObjs.length-1){
             arrOfObjs.push(obj);
             youPlaced = arrOfObjs.length;
-            return;
+            return arrOfObjs;
         }
     }
 }
