@@ -194,7 +194,7 @@ let saveScore = function(event){
         [currentScore]: initials,
     };
     let currentScoreTable 
-    if(!localStorage.hiScore || !Array.isArray(JSON.parse(localStorage.hiScore))){
+    if(localStorage.hiScore === undefined || !Array.isArray(JSON.parse(localStorage.hiScore))){
         currentScoreTable = [];
     } else {
         currentScoreTable = JSON.parse(localStorage.hiScore);
