@@ -137,7 +137,7 @@ let nextKeyAssigner = function(){
 // This function will retain the value of a user selected answer and use it to compare for a point
 let chooseAnswer = function(answer){
     for(let i = 1; i < 5; i++){
-        document.getElementById(`answerChoice${i}`).style.backgroundColor = 'cyan';
+        document.getElementById(`answerChoice${i}`).style.backgroundColor = "cyan";
     }
     answer.style.backgroundColor = 'greenyellow';
     chosenAnswer = answer.textContent;
