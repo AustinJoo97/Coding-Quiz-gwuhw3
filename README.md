@@ -6,7 +6,7 @@ This web application is a simple coding quiz game about HTML, CSS, and Javascrip
 
 ## About the Application
 
-The program itself cycles through multiple html divs that are conditionally hidden and shown through css property adjustments. When a user first loads the quiz, they will be presented with a simple screen with the quiz title (rendered using an HTML <h1> tag) and a start button.
+The program itself cycles through multiple html divs that are conditionally hidden and shown through css property adjustments. When a user first loads the quiz, they will be presented with a simple screen with the quiz title (rendered using an HTML h1 tag) and a start button.
   
 Upon clicking the start button, the initial html button will become hidden and the first question and answer set will be loaded. There will also be a timer that is visible to the user; starting at 30 seconds, it will continue to decrement until the quiz is over. 
 
